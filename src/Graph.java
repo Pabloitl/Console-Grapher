@@ -20,7 +20,8 @@ public class Graph {
         if (values == null)
             throw new NullPointerException("Error at ploting values");
 
-        mean = (int) Math.round(Arrays.stream(values).summaryStatistics().getAverage());
+        mean = (int) Math.round(
+            Arrays.stream(values).summaryStatistics().getAverage());
 
         for (int i = GRAPH_OFFSET; i < N_COLUMNS; i++) {
             for (int j = N_ROWS - GRAPH_OFFSET; j >= 0; j--) {
@@ -69,9 +70,9 @@ public class Graph {
     }
 
     private String getMeanSeparator() {
-        if (mean / 10 <= 2) {
+        if (mean % 10 <= 2) {
             return BoxSelector.getBoxElement(1);
-        } else if (mean / 10 <= 8) {
+        } else if (mean % 10 < 8) {
             return BoxSelector.getBoxDrawing("Horizontal Middle");
         } else {
             return BoxSelector.getBoxDrawing("Horizontal");
@@ -79,7 +80,7 @@ public class Graph {
     }
 
     public void show() {
-        String separator = " ";
+        String separator;
 
         for (String[] row : graph) {
             if (row == graph[N_ROWS - 1])
